@@ -1,42 +1,42 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def render_index():
-    return 'здесь будет главная'
+    return render_template('index.html')
 
 
 @app.route('/goals/<goal>/')
 def render_goal(goal):
-    return 'здесь будет цель {}'.format(goal)
+    return render_template('goal.html')
 
 
 @app.route('/profiles/<profile_id>/')
 def render_profile(profile_id):
-    return 'здесь будет преподаватель <id учителя> {}'.format(profile_id)
+    return render_template('profile.html')
 
 
 @app.route('/request/')
 def render_request():
-    return 'здесь будет заявка на подбор'
+    return render_template('request.html')
 
 
 @app.route('/request_done/')
 def render_request_done():
-    return 'заявка на подбор отправлена'
+    return render_template('request_done.html')
 
 
 @app.route('/booking/<profile_id>/<day>/<time>/')
 def render_booking(profile_id, day, time):
-    return 'здесь будет форма бронирования <id учителя>'.format(profile_id, day, time)
+    return render_template('booking.html')
 
 
 @app.route('/booking_done/')
 def render_booking_done():
-    return 'заявка отправлена'
+    return render_template('booking_done.html')
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
