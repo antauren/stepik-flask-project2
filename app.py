@@ -31,7 +31,7 @@ def render_request_done():
 
 @app.route('/booking/<int:profile_id>/<day>/<time>/')
 def render_booking(profile_id, day, time):
-    return render_template('booking.html')
+    return render_template('booking.html', profile=teachers[profile_id], day=day, time=time, days_of_week=days_of_week)
 
 
 @app.route('/booking_done/')
