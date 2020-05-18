@@ -1,4 +1,5 @@
 from flask import Flask, render_template
+from data import teachers, goals, days_of_week
 
 app = Flask(__name__)
 
@@ -13,9 +14,9 @@ def render_goal(goal):
     return render_template('goal.html')
 
 
-@app.route('/profiles/<profile_id>/')
+@app.route('/profiles/<int:profile_id>/')
 def render_profile(profile_id):
-    return render_template('profile.html')
+    return render_template('profile.html', profile=teachers[profile_id], goals=goals, days_of_week=days_of_week)
 
 
 @app.route('/request/')
@@ -28,7 +29,7 @@ def render_request_done():
     return render_template('request_done.html')
 
 
-@app.route('/booking/<profile_id>/<day>/<time>/')
+@app.route('/booking/<int:profile_id>/<day>/<time>/')
 def render_booking(profile_id, day, time):
     return render_template('booking.html')
 
