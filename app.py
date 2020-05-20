@@ -28,6 +28,7 @@ def render_goal(goal):
     return render_template('goal.html',
                            goal=goal,
                            goals=goals,
+                           goal_icons=goal_icons,
                            teachers=[teacher for teacher in teachers
                                      if goal in set(teacher.get('goals'))]
 
