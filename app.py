@@ -14,8 +14,10 @@ def render_index():
     teachers_ = teachers.copy()
     random.shuffle(teachers_)
 
+    teachers_ = teachers_[:6]
+
     return render_template('index.html',
-                           teachers=teachers_[:6],
+                           teachers=teachers_,
                            goals=goals,
                            goal_icons=goal_icons
                            )
@@ -39,7 +41,7 @@ def render_profile(profile_id):
 
 @app.route('/request/')
 def render_request():
-    return render_template('request.html')
+    return render_template('request.html', goals=goals)
 
 
 @app.route('/request_done/', methods=['GET', 'POST'])
