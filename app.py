@@ -14,7 +14,13 @@ def render_index():
 
 @app.route('/goals/<goal>/')
 def render_goal(goal):
-    return render_template('goal.html')
+    return render_template('goal.html',
+                           goal=goal,
+                           goals=goals,
+                           teachers=[teacher for teacher in teachers
+                                     if goal in set(teacher.get('goals'))]
+
+                           )
 
 
 @app.route('/profiles/<int:profile_id>/')
