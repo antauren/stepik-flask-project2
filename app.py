@@ -1,5 +1,7 @@
+import random
+
 from flask import Flask, render_template, request
-from data import teachers, goals, days_of_week
+from data import teachers, goals, goal_icons, days_of_week
 
 from handler import update_data
 
@@ -9,7 +11,14 @@ app.secret_key = 'REPLACE_ME'
 
 @app.route('/')
 def render_index():
-    return render_template('index.html')
+    teachers_ = teachers.copy()
+    random.shuffle(teachers_)
+
+    return render_template('index.html',
+                           teachers=teachers_[:6],
+                           goals=goals,
+                           goal_icons=goal_icons
+                           )
 
 
 @app.route('/goals/<goal>/')
