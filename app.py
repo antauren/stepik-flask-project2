@@ -1,7 +1,7 @@
 from flask import Flask, render_template, request
 from data import teachers, goals, days_of_week
 
-from handler import update_booking_data
+from handler import update_data
 
 app = Flask(__name__)
 app.secret_key = 'REPLACE_ME'
@@ -27,9 +27,24 @@ def render_request():
     return render_template('request.html')
 
 
-@app.route('/request_done/')
+@app.route('/request_done/', methods=['GET', 'POST'])
 def render_request_done():
-    return render_template('request_done.html')
+    goal = request.form.get('goal')
+    time = request.form.get('time')
+    name = request.form.get('name')
+    phone = request.form.get('phone')
+
+    if request.method != "POST":
+        return 'Error'
+
+    data = {'goal': goal,
+            'time': time,
+            'name': name,
+            'phone': phone
+            }
+    update_data('request.json', data)
+
+    return render_template('request_done.html', goal=goals[goal], time=time, name=name, phone=phone)
 
 
 @app.route('/booking/<int:profile_id>/<day>/<time>/')
@@ -54,7 +69,7 @@ def render_booking_done():
             'day': day,
             'time': time
             }
-    update_booking_data(data)
+    update_data('booking.json', data)
 
     return render_template('booking_done.html', name=name, phone=phone, day=days_of_week[day], time=time)
 
