@@ -1,7 +1,10 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from data import teachers, goals, days_of_week
 
+from handler import update_booking_data
+
 app = Flask(__name__)
+app.secret_key = 'REPLACE_ME'
 
 
 @app.route('/')
@@ -34,9 +37,26 @@ def render_booking(profile_id, day, time):
     return render_template('booking.html', profile=teachers[profile_id], day=day, time=time, days_of_week=days_of_week)
 
 
-@app.route('/booking_done/')
+@app.route('/booking_done/', methods=['GET', 'POST'])
 def render_booking_done():
-    return render_template('booking_done.html')
+    name = request.form.get('clientName')
+    phone = request.form.get('clientPhone')
+    day = request.form.get('clientWeekday')
+    time = request.form.get('clientTime')
+    profile_id = request.form.get('clientTeacher')
+
+    if request.method != "POST":
+        return 'Error'
+
+    data = {'name': name,
+            'profile_id': profile_id,
+            'phone': phone,
+            'day': day,
+            'time': time
+            }
+    update_booking_data(data)
+
+    return render_template('booking_done.html', name=name, phone=phone, day=days_of_week[day], time=time)
 
 
 if __name__ == '__main__':
