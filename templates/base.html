@@ -18,11 +18,15 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
-        <li class="nav-item active">
-          <a class="nav-link" href="{{ url_for('render_all') }}">Все репетиторы</a>
+
+        {% set href_all = url_for('render_all') %}
+        {% set href_request = url_for('render_request') %}
+
+        <li class="nav-item {% if request.path == href_all %}active{% endif %}">
+          <a class="nav-link" href="{{ href_all }}">Все репетиторы</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="{{ url_for('render_request') }}">Заявка на подбор</a>
+        <li class="nav-item {% if request.path == href_request %}active{% endif %}">
+          <a class="nav-link" href="{{ href_request }}">Заявка на подбор</a>
         </li>
       </ul>
     </div>
