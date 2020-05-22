@@ -1,6 +1,6 @@
 import random
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 from data import teachers, goals, goal_icons, days_of_week
 
 from handler import update_data
@@ -61,7 +61,7 @@ def render_request():
 @app.route('/request_done/', methods=['GET', 'POST'])
 def render_request_done():
     if request.method != "POST":
-        return 'Error'
+        return redirect(url_for('render_request'))
 
     goal = request.form.get('goal')
     time = request.form.get('time')
@@ -94,7 +94,7 @@ def render_booking_done():
     profile_id = request.form.get('clientTeacher')
 
     if request.method != "POST":
-        return 'Error'
+        return redirect(url_for('render_index'))
 
     data = {'name': name,
             'profile_id': profile_id,
