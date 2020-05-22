@@ -4,6 +4,7 @@ from flask import Flask, render_template, request
 from data import teachers, goals, goal_icons, days_of_week
 
 from handler import update_data
+from forms import ClientForm
 
 app = Flask(__name__)
 app.secret_key = 'REPLACE_ME'
@@ -54,18 +55,20 @@ def render_profile(profile_id):
 
 @app.route('/request/')
 def render_request():
-    return render_template('request.html', goals=goals)
+    return render_template('request.html', goals=goals, form=ClientForm())
 
 
 @app.route('/request_done/', methods=['GET', 'POST'])
 def render_request_done():
-    goal = request.form.get('goal')
-    time = request.form.get('time')
-    name = request.form.get('name')
-    phone = request.form.get('phone')
-
     if request.method != "POST":
         return 'Error'
+
+    goal = request.form.get('goal')
+    time = request.form.get('time')
+
+    form = ClientForm()
+    name = form.name.data
+    phone = form.phone.data
 
     data = {'goal': goal,
             'time': time,
