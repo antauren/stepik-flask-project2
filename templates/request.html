@@ -60,8 +60,11 @@
         <hr>
         <div class="card-body mx-3">
 
-          {{ form.name }}
-          {{ form.phone }}
+          {{ form.name.label(class_="mb-1 mt-2") }}
+          {{ form.name(class_="form-control") }}
+
+          {{ form.phone.label(class_="mb-1 mt-2") }}
+          {{ form.phone(class_="form-control") }}
 
           <input type="submit" class="btn btn-primary mt-4 mb-2" value="Найдите мне преподавателя">
         </div>
