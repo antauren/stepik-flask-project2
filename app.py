@@ -23,6 +23,18 @@ def render_index():
                            )
 
 
+@app.route('/all/')
+def render_all():
+    teachers_ = teachers.copy()
+    random.shuffle(teachers_)
+
+    return render_template('index.html',
+                           teachers=teachers_,
+                           goals=goals,
+                           goal_icons=goal_icons
+                           )
+
+
 @app.route('/goals/<goal>/')
 def render_goal(goal):
     return render_template('goal.html',
