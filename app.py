@@ -84,6 +84,7 @@ def render_request_done():
 def render_booking(profile_id, day, time):
     return render_template('booking.html',
 
+                           form=ClientForm(),
                            profile=teachers[profile_id],
                            day=day,
                            time=time,
@@ -96,8 +97,10 @@ def render_booking_done():
     if request.method != "POST":
         return redirect(url_for('render_index'))
 
-    name = request.form.get('clientName')
-    phone = request.form.get('clientPhone')
+    form = ClientForm()
+    name = form.name.data
+    phone = form.phone.data
+
     day = request.form.get('clientWeekday')
     time = request.form.get('clientTime')
     profile_id = request.form.get('clientTeacher')
