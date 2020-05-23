@@ -87,14 +87,14 @@ def render_booking(profile_id, day, time):
 
 @app.route('/booking_done/', methods=['GET', 'POST'])
 def render_booking_done():
+    if request.method != "POST":
+        return redirect(url_for('render_index'))
+
     name = request.form.get('clientName')
     phone = request.form.get('clientPhone')
     day = request.form.get('clientWeekday')
     time = request.form.get('clientTime')
     profile_id = request.form.get('clientTeacher')
-
-    if request.method != "POST":
-        return redirect(url_for('render_index'))
 
     data = {'name': name,
             'profile_id': profile_id,
