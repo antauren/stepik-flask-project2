@@ -29,31 +29,18 @@
 
             </div>
             <div class="col">
-              <p>Сколько времени есть?</p>
-              <div class="form-check">
-                <input type="radio" class="form-check-input" name="time" value="1-2" id="time1">
-                <label class="form-check-label" for="time1">
-                  1-2 часа в&nbsp;неделю
-                </label>
-              </div>
-              <div class="form-check">
-                <input type="radio" class="form-check-input" name="time" value="3-5" id="time2">
-                <label class="form-check-label" for="time2">
-                  3-5 часов в&nbsp;неделю
-                </label>
-              </div>
-              <div class="form-check">
-                <input type="radio" class="form-check-input" name="time" value="5-7" id="time3" checked>
-                <label class="form-check-label" for="time3">
-                  5-7 часов в&nbsp;неделю
-                </label>
-              </div>
-              <div class="form-check">
-                <input type="radio" class="form-check-input" name="time" value="7-10" id="time4">
-                <label class="form-check-label" for="time4">
-                  7-10 часов в&nbsp;неделю
-                </label>
-              </div>
+              <p>Сколько часов в неделю готовы тратить на занятия?</p>
+
+              {% for time in ('1-2', '3-5', '5-7', '7-10') %}
+
+                <div class="form-check">
+                  <input type="radio" class="form-check-input" name="time"
+                         value="{{ time }}" id="time{{ loop.index }}" checked>
+                  <label class="form-check-label" for="time{{ loop.index }}">{{ time }}</label>
+                </div>
+
+              {% endfor %}
+
             </div>
           </div>
         </div>
