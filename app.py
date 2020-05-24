@@ -4,7 +4,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from data import teachers, goals, goal_icons, days_of_week
 
 from handler import update_data
-from forms import ClientForm
+from forms import RequestForm, BookingForm
 
 app = Flask(__name__)
 app.secret_key = 'REPLACE_ME'
@@ -55,7 +55,7 @@ def render_profile(profile_id):
 
 @app.route('/request/')
 def render_request():
-    return render_template('request.html', goals=goals, form=ClientForm())
+    return render_template('request.html', goals=goals, form=RequestForm())
 
 
 @app.route('/request_done/', methods=['GET', 'POST'])
@@ -66,7 +66,7 @@ def render_request_done():
     goal = request.form.get('goal')
     time = request.form.get('time')
 
-    form = ClientForm()
+    form = RequestForm()
     name = form.name.data
     phone = form.phone.data
 
@@ -84,7 +84,7 @@ def render_request_done():
 def render_booking(profile_id, day, time):
     return render_template('booking.html',
 
-                           form=ClientForm(),
+                           form=BookingForm(),
                            profile=teachers[profile_id],
                            day=day,
                            time=time,
@@ -97,7 +97,7 @@ def render_booking_done():
     if request.method != "POST":
         return redirect(url_for('render_index'))
 
-    form = ClientForm()
+    form = BookingForm()
     name = form.name.data
     phone = form.phone.data
 
