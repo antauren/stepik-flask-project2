@@ -19,5 +19,6 @@ class BookingForm(ClientForm):
 
 
 class RequestForm(ClientForm):
-    goal = RadioField('goal', choices=list(goals.items()))
-    time = RadioField('time', choices=[(value, value) for value in ('1-2', '3-5', '5-7', '7-10')])
+    goal = RadioField('goal', choices=list(goals.items()), validators=[InputRequired()])
+    time = RadioField('time', choices=[(value, value) for value in ('1-2', '3-5', '5-7', '7-10')],
+                      validators=[InputRequired()])
